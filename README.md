@@ -4,7 +4,7 @@ CSE360Team11GroupProject
 # CSE360Team11GroupProject
 Group project for Team 11 in CSE360 Spring 2016 
 
-
+Trello: https://trello.com/b/GRESOJc3/cse360-project
 
 -	Have a list of random “monsters”. 
 -	Go from encounter to encounter. 
