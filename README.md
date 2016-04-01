@@ -3,6 +3,8 @@ Group project for Team 11 in CSE360 Spring 2016
 
 Trello: https://trello.com/b/GRESOJc3/cse360-project
 
+Brief description of the game (more details to come later).
+
 -	Have a list of random “monsters”. 
 -	Go from encounter to encounter. 
 -	At the end you have a high score. 
