@@ -3,7 +3,7 @@ Group project for Team 11 in CSE360 Spring 2016
 
 Trello: https://trello.com/b/GRESOJc3/cse360-project
 
-Brief description of the game (more details to come later).
+Brief description of the game (more details in /Documents/Game Description.docx).
 
 -	Have a list of random “monsters”. 
 -	Go from encounter to encounter. 
