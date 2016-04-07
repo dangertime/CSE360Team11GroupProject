@@ -13,7 +13,7 @@ public class Dice
 		this.numGenerator = new Random();
 	}
 	
-	public int rollDice()
+	public int roll()
 	{
 		return numGenerator.nextInt(diceSize);
 	}
