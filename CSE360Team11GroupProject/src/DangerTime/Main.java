@@ -6,5 +6,6 @@ public class Main
 	{
 		System.out.println("It's danger time!");
 		Game game = new Game();
+		game.start();
 	}
 }
