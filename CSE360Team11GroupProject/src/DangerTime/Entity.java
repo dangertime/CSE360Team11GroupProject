@@ -2,12 +2,11 @@ package DangerTime;
 
 public abstract class Entity 
 {
-	private int currentHealth;
-	private int maxHealth;
-	private int score;
-	private Dice damageDie1;
-	private Dice damageDie2;
-	private String name;
+	protected int currentHealth;
+	protected int maxHealth;
+	protected String name;
+	protected Dice hitChance;
+	protected Dice runChance;
 	
 	public void setHealth(int newHealth)
 	{
@@ -24,8 +23,4 @@ public abstract class Entity
 		return maxHealth;
 	}
 	
-	public int getScore()
-	{
-		return score;
-	}
 }
