@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -91,6 +89,11 @@ public class Monster extends Entity
 		return toPrint;
 	}
 	
+	public int getPoints(){
+		
+		return this.points;
+		
+	}
 	
 	/**
 	 * Method that is called to deal damage to player

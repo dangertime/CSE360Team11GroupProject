@@ -8,10 +8,6 @@ public abstract class Entity
 	protected Dice hitChance;
 	protected Dice runChance;
 	
-	public void setHealth(int newHealth)
-	{
-		currentHealth = newHealth;
-	}
 	
 	public int getHealth()
 	{
