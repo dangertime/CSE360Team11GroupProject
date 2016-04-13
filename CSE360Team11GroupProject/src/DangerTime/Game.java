@@ -46,6 +46,9 @@ public class Game
 		System.out.println("\t3: Quit");
 	}
 	
+	/**
+	 * Start the game by instantiating the first room.
+	 */
 	private void play()
 	{
 		do
