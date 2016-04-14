@@ -20,11 +20,6 @@ public class Room {
 		this.isFightingFlag = 0;
 	}
 	
-	public String displayMsg()
-	{
-		return "This is a string.";
-	}
-	
 	public void fight()
 	{
 	    //while(player.isAlive() && monster.isAlive() && monster.stayToFight()) //could be do while loop, up to you
@@ -88,12 +83,12 @@ public class Room {
 	
 	public void mDamagePlayer()
 	{
-		monster.dealDamage();
+		player.takeDamage(monster.dealDamage());
 	}
 	
 	public void pDamageMonster()
 	{
-		player.dealDamage();
+		monster.takeDamage(player.dealDamage());
 	}
 	
 	/**
@@ -101,7 +96,8 @@ public class Room {
 	 * Return value of 1 means player is fighting.
 	 * Return valuse of 0 means player is not fighting
 	 */
-	public int isFighting() {
+	public int isFighting() 
+	{
 		return isFighting;
 	}
 	
@@ -109,7 +105,8 @@ public class Room {
 	 * Triggers a dice roll that decides whether the player will fight
 	 * or not fight and get a prize instead.
 	 */
-	public void enter() {
+	public void enter() 
+	{
 		findOrFight();
 	}
 	
@@ -117,7 +114,8 @@ public class Room {
 	 * Sets the findOrFight flag which ultimately decides whether the
 	 * player will fight or get a prize.
 	 */
-	private void findOrFight() {
+	private void findOrFight() 
+	{
 		
 		if(findOrFight.roll() == 12) {
 			
