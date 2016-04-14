@@ -46,6 +46,7 @@ public class Player extends Entity
 		int damage;
 		int firstRoll = damageDie1.roll();
 		int secondRoll = damageDie2.roll();
+		
 		if(hitOrMiss()){
 			if(firstRoll == secondRoll){
 				damage = (firstRoll + secondRoll)*2;
@@ -97,7 +98,7 @@ public class Player extends Entity
 	private Boolean hitOrMiss(){
 		Boolean hit;
 		int roll = hitChance.roll();
-		if(roll > HIT_CHANCE){
+		if(roll < HIT_CHANCE){
 			hit = true;
 		} else {
 			hit = false;
