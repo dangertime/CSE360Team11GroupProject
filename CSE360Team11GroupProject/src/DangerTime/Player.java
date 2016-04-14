@@ -52,13 +52,11 @@ public class Player extends Entity
 			} else { 
 				damage = firstRoll + secondRoll;
 			}
-			return damage;
 		} else {
 			damage = 0;
 			System.out.println("You missed because you are bad.");
-			return damage;
 		}
-
+		return damage;
 	}
 	
 	public Boolean runAttempt(){
