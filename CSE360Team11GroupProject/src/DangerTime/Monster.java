@@ -19,6 +19,7 @@ public class Monster extends Entity
 	private static final String ADJ_TEXT_FILENAME = "src/monster_adj.txt";
 	private static final String MONSTER_INFO_FILENAME = "src/monsters.txt";
 	private static final int MAX_DAMAGE = 10;	//number of sides on damage die
+	private static final int HIT_CHANCE_DIE_SIZE = 100;	
 	private static final int HIT_CHANCE = 75;	// if roll on hit die > HIT_CHANCE, monster misses
 	private static final int BOSS_HEALTH_SCALING_FACTOR = 2;
 	private static final int RUN_FIRST_CHANCE = 19;
@@ -54,7 +55,7 @@ public class Monster extends Entity
 		this.maxHealth = Integer.parseInt(monsterInfo.get(2));
 		this.points = Integer.parseInt(monsterInfo.get(3));
 		this.damageDie = new Dice(MAX_DAMAGE);
-		this.hitChance = new Dice(HIT_CHANCE);
+		this.hitChance = new Dice(HIT_CHANCE_DIE_SIZE);
 		this.runChance = new Dice(FIGHT_OR_RUN_DIE_SIDES);
 		
 		//rolling to see if monster runs away
@@ -100,7 +101,17 @@ public class Monster extends Entity
 	 * @return Returns the amount of damage the monster deals to the player
 	 */
 	public int dealDamage(){
-		return damageDie.roll();
+		int damage;
+		
+		if(hitOrMiss()){
+			damage = damageDie.roll();
+		}
+		else{
+			System.out.println(name + " missed! They should try harder next time...");
+			damage = 0;
+		}
+		
+		return damage;
 	}
 	
 
@@ -112,6 +123,16 @@ public class Monster extends Entity
 		return stayAndFight;
 	}
 	
+	private Boolean hitOrMiss(){
+		Boolean hit;
+		int roll = hitChance.roll();
+		if(roll < HIT_CHANCE){
+			hit = true;
+		} else {
+			hit = false;
+		}
+		return hit;
+	}
 	
 	/**
 	 * Reads text files to generate name, health, and points.
