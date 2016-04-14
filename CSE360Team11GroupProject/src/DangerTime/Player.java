@@ -25,6 +25,10 @@ public class Player extends Entity
 	private Dice damageDie1; 
 	private Dice damageDie2; 
 	
+	/**
+	 * Constructor to set all the default values for a new player
+	 * Sets upthe amount of dice needed and the correct size of each dice
+	 */
 	public Player()
 	{
 		this.maxHealth = MAX_HEALTH;
@@ -38,15 +42,21 @@ public class Player extends Entity
 		this.monstersDefeated = 0;
 	}
 	
+	/**
+	 * Method that is called to set the name of the player
+	 */
 	public void setName(String name){
 		this.name = name;
 	}
 	
+	/**
+	 * Method that is called to deal damage to the monster
+	 * @return Returns the amount of damage the player deals to the monster
+	 */
 	public int dealDamage(){
 		int damage;
 		int firstRoll = damageDie1.roll();
 		int secondRoll = damageDie2.roll();
-		
 		if(hitOrMiss()){
 			if(firstRoll == secondRoll){
 				damage = (firstRoll + secondRoll)*2;
@@ -60,6 +70,10 @@ public class Player extends Entity
 		return damage;
 	}
 	
+	/**
+	 * Method that is called to check if the player makes a valid run
+	 * @return Returns a bool that if true means the player successfully ran
+	 */
 	public Boolean runAttempt(){
 		Boolean run;
 		int roll = runChance.roll();
@@ -71,30 +85,55 @@ public class Player extends Entity
 		return run;
 	}
 	
+	/**
+	 * Method that is called to return the score of the player
+	 * @return Returns the the score of the player
+	 */
 	public int getScore(){
 		return score;
 	}
 	
+	/**
+	 * Method that is called to return the number of rooms cleared
+	 * @return Returns the amount of rooms cleared
+	 */
 	public int getNumRooms(){
 		return numRooms;
 	}
 	
+	/**
+	 * Method that is called to return the number of monsters defeated
+	 * @return Returns the amount of monsters defeated
+	 */
 	public int getMonstersDefeated(){
 		return monstersDefeated;
 	}
 	
+	/**
+	 * Method that is called to increase the score of a player based on the points of the monster defeated
+	 */
 	public void increaseScore(int points){
 		score += points;
 	}
 	
+	/**
+	 * Method that is called to record that the player defeated a monster
+	 */
 	public void defeatedMonster(){
 		monstersDefeated += 1;
 	}
 	
+	/**
+	 * Method that is called to record that the player has completed a room
+	 */
 	public void clearedRoom(){
 		numRooms =+ 1;
 	}
 	
+	/**
+	 * Private method that is called to check if a player will hit or miss on a damage roll
+	 * @return Returns a boolean value where if true the player hits if false the player will miss
+	 */
 	private Boolean hitOrMiss(){
 		Boolean hit;
 		int roll = hitChance.roll();
