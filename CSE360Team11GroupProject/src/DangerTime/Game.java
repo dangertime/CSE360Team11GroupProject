@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Game 
 {
-	private static final String HIGHSCORE_FILE = "highscore.txt";
+	private static final String HIGHSCORE_FILE = "src/highscore.txt";
 	private static final int HIGHSCORE_MAX_DISPLAY = 20;
 	
 	private Player player;
