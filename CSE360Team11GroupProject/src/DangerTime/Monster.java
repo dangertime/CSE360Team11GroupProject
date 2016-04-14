@@ -54,7 +54,7 @@ public class Monster extends Entity
 		this.maxHealth = Integer.parseInt(monsterInfo.get(2));
 		this.points = Integer.parseInt(monsterInfo.get(3));
 		this.damageDie = new Dice(MAX_DAMAGE);
-		this.hitChance = new Dice(HIT_CHANCE);
+		this.hitChance = new Dice(HIT_CHANCE_DIE_SIZE);
 		this.runChance = new Dice(FIGHT_OR_RUN_DIE_SIDES);
 		
 		//rolling to see if monster runs away
