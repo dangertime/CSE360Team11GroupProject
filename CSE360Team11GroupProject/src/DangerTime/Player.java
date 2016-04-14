@@ -31,6 +31,7 @@ public class Player extends Entity
 	 */
 	public Player()
 	{
+		this.name = "Danger, Tim";
 		this.maxHealth = MAX_HEALTH;
 		this.currentHealth = this.maxHealth;
 		this.damageDie1 = new Dice(MAX_DAMAGE);
@@ -127,7 +128,7 @@ public class Player extends Entity
 	 * Method that is called to record that the player has completed a room
 	 */
 	public void clearedRoom(){
-		numRooms =+ 1;
+		numRooms += 1;
 	}
 	
 	/**
