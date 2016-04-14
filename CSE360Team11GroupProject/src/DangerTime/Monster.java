@@ -171,7 +171,8 @@ public class Monster extends Entity
             while((fileLine = bufferedReader.readLine()) != null) {
                 if(DEBUG)
                 	System.out.println("reading file, current line: " + fileLine);
-            	monsterFileRead.add(fileLine);
+                if(!fileLine.startsWith("#"))
+					monsterFileRead.add(fileLine);
             }   
 
             // Always close files.
@@ -196,7 +197,8 @@ public class Monster extends Entity
             while((fileLine = bufferedReader.readLine()) != null) {
                 if(DEBUG)
                 	System.out.println("reading file, current line: " + fileLine);
-            	monsterAdjFileRead.add(fileLine);
+                if(!fileLine.startsWith("#"))
+					monsterAdjFileRead.add(fileLine);
             }   
 
             // Always close files.
