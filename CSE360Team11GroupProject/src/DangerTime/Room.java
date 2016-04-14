@@ -1,10 +1,13 @@
 package DangerTime;
 
 public class Room {
+	
 	private Monster monster;
+	private Player player;
 	
 	public Room(Player player)
 	{
-		//INCOMPLETE
+		this.player = player;
+		this.monster = new Monster();
 	}
 }
