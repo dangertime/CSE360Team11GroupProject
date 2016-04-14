@@ -1,0 +1,5 @@
+#Score,Name,Rooms,Monsters
+100,Max,10,8
+0,Pat,0,0
+5000,Chet,20,17
+123,hillary duff,11,12
