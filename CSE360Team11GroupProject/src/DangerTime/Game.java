@@ -51,12 +51,15 @@ public class Game
 	 */
 	private void play()
 	{
+		System.out.println("What is your name brave hero?");
 		do
 		{
 			room = new Room(player);
 			//room.start()
 		} while(player.isAlive());
 		System.out.println("You have been slain!");
+		System.out.println("Recording your score now...");
+		handleStatistics(player);
 		System.out.println("Press a key to return to the main menu");
 		scanner.next();
 	}
@@ -84,8 +87,13 @@ public class Game
 			break;
 		default:
 			quit = false;
-			System.out.println("INVALID INPUT");
+			System.out.println("NOT AN OPTION IN MENU");
 		}
 		return quit;
+	}
+	
+	private void handleStatistics(Player t_player)
+	{
+		//
 	}
 }
