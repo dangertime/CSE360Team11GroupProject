@@ -1,3 +1,4 @@
+# Name,Health,Points
 Slime,10,1
 Towel Rack,11,2
 Hyena,15,3
