@@ -1,5 +1,8 @@
 package DangerTime;
 
+import java.util.Random;
+import java.util.Scanner;
+
 public class Room {
 	
 	private final boolean DEBUG = false;
@@ -27,7 +30,7 @@ public class Room {
 	{
 		this.player = player;
 		this.monster = new Monster();
-		this.findOrFight = new Dice();
+		this.findOrFight = new Dice(FIND_OR_FIGHT_CHANCE);
 		this.isFightingFlag = false;
 	}
 	
@@ -49,7 +52,7 @@ public class Room {
 	    {
     	    System.out.println(monster.toString() + ": Prepare to die!");
 	    	//monster goes first
-    	    mdamageplayer();
+    	    mDamagePlayer();
     	    
     	    //give menu option for player running
 	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.");
@@ -83,6 +86,7 @@ public class Room {
     	    		System.out.println("You can't run...ahahahaha...you fool!");
     	    	}
     	    }
+	    }
 		
 	}
 	
@@ -149,7 +153,7 @@ public class Room {
 	 */
 	public void pDamageMonster()
 	{
-		int damage = monster.dealDamage();
+		int damage = player.dealDamage();
 		System.out.print("You dealt " + damage + " damage to " + monster.toString() + "!\n");
 		monster.takeDamage(damage);
 	}
@@ -157,7 +161,7 @@ public class Room {
 	/**
 	 * Returns whether or not the player should fight.
 	 * Return value of true means player is fighting.
-	 * Return valuse of false means player is not fighting
+	 * Return values of false means player is not fighting
 	 */
 	public boolean isFighting() 
 	{
@@ -183,9 +187,10 @@ public class Room {
 		if(findOrFight.roll() == 12) {
 			
 			isFightingFlag = false; 
-			event();
 			
-		} else isFightingFlag = true;
+		} else {
+			isFightingFlag = true;
+		}
 		
 	}
 	
@@ -195,30 +200,31 @@ public class Room {
 	 * the player may receive health back or earn some extra points towards their
 	 * score.
 	 */
-	private void event() 
+	public void event() 
 	{
 		
 		Random rand = new Random();
-		int event = rand.nextInt(3);
+		int randomIndex = rand.nextInt(3);
+		events event = events.values()[randomIndex];
 		
-		case(event) {
-			POTION:
+		switch(event) {
+		case POTION:
 				
-				System.out.println(eventStrings[POTION]);
+				System.out.println(eventStrings[randomIndex]);
 		
 				// making sure that the player receives a nonzero amount of health back
-				player.increaseHealth(rand.nextInt(4) * 10 + 10;);
+				player.increaseHealth(rand.nextInt(4) * 10 + 10);
 				
 				break;
 				
-			EMPTY_ROOM:
+		case EMPTY_ROOM:
 				
-				System.out.println(eventStrings[EMPTY_ROOM]);
+				System.out.println(eventStrings[randomIndex]);
 				break;
 				
-			GOLD:
+		case GOLD:
 				
-				System.out.println(eventStrings[GOLD]);
+				System.out.println(eventStrings[randomIndex]);
 				
 				// making sure that the player receives a nonzero amount of health back
 				player.increaseScore(rand.nextInt(4) * 10 + 10);

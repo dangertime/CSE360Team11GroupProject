@@ -154,7 +154,7 @@ public class Monster extends Entity
 	 * True if monsters roll to determine if running before fighting was > threshold 
 	 * @return True if monster is fighting, false if monster runs away on first move. 
 	 */
-	public boolean stayTofight(){
+	public boolean stayToFight(){
 		return stayAndFight;
 	}
 	
