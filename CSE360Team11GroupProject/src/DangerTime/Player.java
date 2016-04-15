@@ -132,6 +132,13 @@ public class Player extends Entity
 	}
 	
 	/**
+	 * Increases currentHealth by parameter health.
+	 */
+	public void increaseHealth(int health) {
+		currentHealth += health;
+	}
+	
+	/**
 	 * Private method that is called to check if a player will hit or miss on a damage roll
 	 * @return Returns a boolean value where if true the player hits if false the player will miss
 	 */
