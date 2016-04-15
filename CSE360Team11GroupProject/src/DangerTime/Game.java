@@ -72,7 +72,16 @@ public class Game
 		do
 		{
 			room = new Room(player);
-			//room.start()
+			room.enter();
+			if(room.isFighting())
+			{
+				room.fight();
+			}
+			else
+			{
+				room.event();
+			}
+			
 		} while(player.isAlive());
 		
 		//Resolve when the player loses

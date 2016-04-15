@@ -21,32 +21,20 @@ public class PlayerTest {
 	public void testDealDamage(){
 		Player p = new Player();
 		int damage = p.dealDamage();
-		if(damage >= 0 && damage <= 100){
-			assertTrue(true);
-		} else {
-			assertTrue(false);
-		}
+		assertTrue(damage >= 0 && damage <= 100);
 	}
 	@Test
 	public void testRunAttempt(){
 		Player p = new Player();
 		boolean bool = p.runAttempt();
-		if(bool){
-			assertTrue(true);
-		} else {
-			assertTrue(false);
-		}
+		assertTrue(true);
 	}
 	@Test
 	public void testGetScore(){
 		Player p = new Player();
 		p.increaseScore(100);
 		p.increaseScore(3000);
-		if(p.getScore() == 3100){
-			assertTrue(true);
-		} else {
-			assertTrue(false);
-		}
+		assertTrue(p.getScore() == 3100);
 	}
 	@Test
 	public void testGetRooms(){
@@ -54,33 +42,21 @@ public class PlayerTest {
 		p.clearedRoom();
 		p.clearedRoom();
 		p.clearedRoom();
-		if(p.getNumRooms() == 3){
-			assertTrue(true);
-		} else {
-			assertTrue(false);
-		}
+		assertTrue(p.getNumRooms() == 3);
 	}
 	@Test
 	public void testGetMonstersDefeated(){
 		Player p = new Player();
 		p.defeatedMonster();
 		p.defeatedMonster();
-		if(p.getMonstersDefeated() == 2){
-			assertTrue(true);
-		} else {
-			assertTrue(false);
-		}
+		assertTrue(p.getMonstersDefeated() == 2);
 	}
 	@Test
 	public void testIncreaseScore(){
 		Player p = new Player();
 		p.increaseScore(100);
 		p.increaseScore(30);
-		if(p.getScore() == 130){
-			assertTrue(true);
-		} else {
-			assertTrue(false);
-		}
+		assertTrue(p.getScore() == 130);
 	}
 	@Test
 	public void testDefeatedMonster(){
@@ -89,21 +65,13 @@ public class PlayerTest {
 		p.defeatedMonster();
 		p.defeatedMonster();
 		p.defeatedMonster();
-		if(p.getMonstersDefeated() == 4){
-			assertTrue(true);
-		} else {
-			assertTrue(false);
-		}
+		assertTrue(p.getMonstersDefeated() == 4);
 	}
 	@Test
 	public void testClearedRoom(){
 		Player p = new Player();
 		p.clearedRoom();
 		p.clearedRoom();
-		if(p.getNumRooms() == 2){
-			assertTrue(true);
-		} else {
-			assertTrue(false);
-		}
+		assertTrue(p.getNumRooms() == 2);
 	}
 }

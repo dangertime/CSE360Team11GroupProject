@@ -58,15 +58,18 @@ public class Player extends Entity
 		int damage;
 		int firstRoll = damageDie1.roll();
 		int secondRoll = damageDie2.roll();
-		if(hitOrMiss()){
-			if(firstRoll == secondRoll){
-				damage = (firstRoll + secondRoll)*2;
-			} else { 
-				damage = firstRoll + secondRoll;
+		damage = firstRoll + secondRoll;
+		if(damage == 0)
+		{
+			System.out.println("You regenerated " + (int)(MAX_HEALTH * 0.1) + " health!");
+		}
+		else
+		{
+			if(!hit())
+			{
+				System.out.println("You missed because you are bad.");
+				damage = 0;
 			}
-		} else {
-			damage = 0;
-			System.out.println("You missed because you are bad.");
 		}
 		return damage;
 	}
@@ -142,7 +145,7 @@ public class Player extends Entity
 	 * Private method that is called to check if a player will hit or miss on a damage roll
 	 * @return Returns a boolean value where if true the player hits if false the player will miss
 	 */
-	private boolean hitOrMiss(){
+	private boolean hit(){
 		boolean hit;
 		int roll = hitChance.roll();
 		if(roll < HIT_CHANCE){

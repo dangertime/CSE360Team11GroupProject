@@ -78,7 +78,7 @@ public class MonsterTest {
 		
 		
 		
-		assertTrue( m.stayTofight() );
+		assertTrue( m.stayToFight() );
 	}	
 	
 	@Test
