@@ -5,13 +5,13 @@ public class Room {
 	private final boolean DEBUG = false;
 	
 	private static final String EVENT_INFO_FILENAME = "src/events.txt";
-	private static final int FIND_OR_FIGHT_CHANCE = 12; // a 1/12th chance of not fighting a monster
+	private static final int FIND_OR_FIGHT_CHANCE = 12; 					// a 1/12th chance of not fighting a monster
 	
 	public enum events {POTION, EMPTY_ROOM, GOLD};
 	
 	static String[] eventStrings = {"You found a potion!\n", 
-						"This is an empty room, proceed with caution!\n", 
-						"You found some gold!\n"};
+									"This is an empty room, proceed with caution!\n", 
+									"You found some gold!\n"};
 	
 	Scanner input = new Scanner(System.in);
 	
@@ -20,6 +20,9 @@ public class Room {
 	private Dice findOrFight;
 	private boolean isFightingFlag;
 	
+	/** 
+	 * Constructor just instantiates all of the member attributes.
+	 */
 	public Room(Player player)
 	{
 		this.player = player;
@@ -28,6 +31,13 @@ public class Room {
 		this.isFightingFlag = false;
 	}
 	
+	/**
+	 * This method is responsible for controlling the battle between the player 
+	 * and the monster. It provides some dialogue prompting the player to either
+	 * to continue battling until there is a victor or to flee for their lives.
+	 * This method is exited when the player dies, the monster dies, the player 
+	 * flees, or the player flees.
+	 */
 	public void fight()
 	{
 		String inputString;
@@ -64,8 +74,14 @@ public class Room {
     	    }
     	    else
     	    {
-    	    	System.out.println("You have fled the battle!");
-    	    	isFightingFlag = false;
+    	    	if(player.runAttempt())
+    	    	{
+    	    		System.out.println("You have fled the battle!");
+    	    		isFightingFlag = false;
+    	    	} else 
+    	    	{
+    	    		System.out.println("You can't run...ahahahaha...you fool!");
+    	    	}
     	    }
 		
 	}
@@ -116,6 +132,10 @@ public class Room {
 //		return eventFileRead;
 //	} // end of parseEventFile
 //	
+    /**
+     * Called within the fight() method when it is the monster's turn to attack
+     * the player. It prints out the amount of health deducted from the player.
+     */    
 	public void mDamagePlayer()
 	{
 		int damage = monster.dealDamage();
@@ -123,6 +143,10 @@ public class Room {
 		player.takeDamage(damage);
 	}
 	
+	/**
+	 * Called within the fight() method when it is the player's turn to attack
+	 * the monster. It prints out the amount of health deducted from the monster.
+	 */
 	public void pDamageMonster()
 	{
 		int damage = monster.dealDamage();
@@ -165,6 +189,12 @@ public class Room {
 		
 	}
 	
+	/**
+	 * This is called within the findOrFight() method. It randomly chooses one of
+	 * the events from the eventString array. Depending on the type of event, 
+	 * the player may receive health back or earn some extra points towards their
+	 * score.
+	 */
 	private void event() 
 	{
 		
@@ -175,6 +205,8 @@ public class Room {
 			POTION:
 				
 				System.out.println(eventStrings[POTION]);
+		
+				// making sure that the player receives a nonzero amount of health back
 				player.increaseHealth(rand.nextInt(4) * 10 + 10;);
 				
 				break;
@@ -187,6 +219,8 @@ public class Room {
 			GOLD:
 				
 				System.out.println(eventStrings[GOLD]);
+				
+				// making sure that the player receives a nonzero amount of health back
 				player.increaseScore(rand.nextInt(4) * 10 + 10);
 				break;
 		}
