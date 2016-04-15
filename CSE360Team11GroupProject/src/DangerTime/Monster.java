@@ -13,7 +13,10 @@ import java.util.StringTokenizer;
 public class Monster extends Entity
 {
 	private final boolean DEBUG = false;
-
+	private final boolean TESTING = true;	//set this to enable testing
+	
+	private boolean TESTING_HIT = false; //set to true to eliminate randomness for testing purposes
+	private boolean TESTING_MISS = false; //set to true to eliminate randomness for testing purposes
 	
 	//constants made for easy modification and game balancing
 	private static final String ADJ_TEXT_FILENAME = "src/monster_adj.txt";
@@ -69,6 +72,26 @@ public class Monster extends Entity
 		//set current health after determining if monster is a boss	
 		this.currentHealth = this.maxHealth;
 
+		
+		//code for testing and debug
+		if(TESTING){
+			/*
+			 * Scared Slime,10,1
+			 */
+			this.stayAndFight = true;
+			System.out.println("\n\n!!!!!!!!! WARNING !!!!!!!!!!!!\n"
+							  + "!!!   TESTING MODE ENABLED!!!\n"
+							  + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+			
+			if(TESTING_HIT && TESTING_MISS) //if both testing mode are enabled, your results will be invalid
+				System.out.println("WARNING\n\n BOTH TESTING MODE ENABLED\nPLEASE DISABLE ONE TESTING MODE!");
+		}
+		if(DEBUG){			
+			System.out.println("\n\n!!!!!!!!! WARNING !!!!!!!!!!!!\n"
+							  + "!!!!   DEBUG MODE ENABLED !!!\n"
+							  + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+		}
+
 	}
 	
 	/**
@@ -77,11 +100,10 @@ public class Monster extends Entity
 	public String toString(){
 		String toPrint = "";
 		
-		if(DEBUG){
-			toPrint += "Monster: " + name + "\n";
-			toPrint += "Max Health: " + maxHealth + "\n";
-			toPrint += "Current Health: " + currentHealth + "\n";
-			toPrint += "Points: " + points + "\n";
+		if(DEBUG || TESTING){
+			toPrint += name + " " + maxHealth + " " + 
+					   currentHealth + " " + stayAndFight + " " + 
+					   points;
 		}
 		else
 			toPrint = this.name;
@@ -90,6 +112,11 @@ public class Monster extends Entity
 		return toPrint;
 	}
 	
+	/**
+	 * Method that returns the number of points the monster is worth. Used for when
+	 * a player defeats a monster. 
+	 * @return Returns number of points monster was worth
+	 */
 	public int getPoints(){
 		
 		return this.points;
@@ -105,11 +132,19 @@ public class Monster extends Entity
 		
 		if(hitOrMiss()){
 			damage = damageDie.roll();
+			
+			//~~~~~~ code for unit testing ~~~~~~~~~~~~~~				
+			if(TESTING && TESTING_HIT){ //hard code damage for testing purposes. Roll should be tested in Dice JUnit
+				damage = 999;
+			}
+			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
+			
 		}
-		else{
+		else{	//works for TESTING_MISS 
 			System.out.println(name + " missed! They should try harder next time...");
 			damage = 0;
 		}
+	
 		
 		return damage;
 	}
@@ -123,6 +158,9 @@ public class Monster extends Entity
 		return stayAndFight;
 	}
 	
+	/*
+	 * Internal method used to determine if a mosters damage hits or misses
+	 */
 	private Boolean hitOrMiss(){
 		Boolean hit;
 		int roll = hitChance.roll();
@@ -131,16 +169,55 @@ public class Monster extends Entity
 		} else {
 			hit = false;
 		}
+		
+		//~~~~~~ code for unit testing ~~~~~~~~~~~~~~		
+		if(TESTING && TESTING_HIT){
+			hit = true;
+		}
+		else if(TESTING && TESTING_MISS){
+			hit = false;
+		}
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~		
+		
+		
 		return hit;
 	}
+
+	
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// functions for checking test modes
+// used for unit testing
+	public boolean getTesting(){
+		return TESTING;
+	}
+	
+	public boolean getTestingHit(){
+		return TESTING_HIT;
+	}
+	
+	public boolean getTestingMiss(){
+		return TESTING_MISS;
+	}
+	
+	public void setTestingHit(){
+		TESTING_HIT = true;
+		TESTING_MISS = false;	//to avoid bugs
+	}
+	
+	public void setTestingMiss(){
+		TESTING_MISS = true;
+		TESTING_HIT = false;	//to avoid bugs
+	}
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
+
 	
 	/**
 	 * Reads text files to generate name, health, and points.
 	 * Should probably be broken into several functions
-	 * @return Returns and ArrayList containing information read from file about monster.
-	 * 		-Index 0 = Monster Adjective
-	 * 		-Index 1 = Monster Name/Type
-	 * 		-Index 2 = Monsters health
+	 * @return Returns and ArrayList containing information read from file about monster. 
+	 * 		-Index 0 = Monster Adjective, 
+	 * 		-Index 1 = Monster Name/Type, 
+	 * 		-Index 2 = Monsters health, 
 	 * 		-Index 3 = Monsters point value
 	 */
 	private List<String> parseInfoFile(){
@@ -158,7 +235,7 @@ public class Monster extends Entity
 			for(String fileNames : file.list()) System.out.println(fileNames);
 		}
 		
-//~~~~~~~~~READING MONSTER_INFO_FILE~~~~~~~~~~~~~		
+		//~~~~~~~~~READING MONSTER_INFO_FILE~~~~~~~~~~~~~		
 		try{
             // FileReader reads text files in the default encoding.
             FileReader fileReader = 
@@ -184,7 +261,9 @@ public class Monster extends Entity
         catch(IOException ex){
             ex.printStackTrace();
         }
-//~~~~~~~~~READING MONSTER_ADJ~~~~~~~~~~~~~
+		
+		
+		//~~~~~~~~~READING MONSTER_ADJ~~~~~~~~~~~~~
 		try{
             // FileReader reads text files in the default encoding.
             FileReader fileReader = 
@@ -211,19 +290,33 @@ public class Monster extends Entity
             ex.printStackTrace();
         }
 		
-//~~~~~~get random monster and create the name~~~~~~~~
-		sizeOfAdjList = monsterAdjFileRead.size();
 		
-		//add adj of name
-		returnParams.add(monsterAdjFileRead.get(numGen.nextInt(sizeOfAdjList)) + " "); 
+		//~~~~~~get random monster and create the name~~~~~~~~
 		
-		//sets monsterInfo to string at random index in list
-		sizeOfMonstList = monsterFileRead.size();	
-		monsterInfo = monsterFileRead.get(numGen.nextInt(sizeOfMonstList)); 
 		
+		
+		if(TESTING){
+			
+			//add adj of name
+			returnParams.add(monsterAdjFileRead.get(0) + " "); 
+			
+			monsterInfo = monsterFileRead.get(0);
+			
+		}
+		else{
+
+			sizeOfAdjList = monsterAdjFileRead.size();
+			
+			//add adj of name
+			returnParams.add(monsterAdjFileRead.get(numGen.nextInt(sizeOfAdjList)) + " "); 
+			
+			//sets monsterInfo to string at random index in list
+			sizeOfMonstList = monsterFileRead.size();	
+			monsterInfo = monsterFileRead.get(numGen.nextInt(sizeOfMonstList)); 
+		}
 
 
-//~~~~~~~~assign monster attributes~~~~~~~~~~~~		
+		//~~~~~~~~assign monster attributes~~~~~~~~~~~~		
 		StringTokenizer splitMonst = new StringTokenizer(monsterInfo,",");
 		
 		returnParams.add(splitMonst.nextToken());	//add 2nd half of name
@@ -232,19 +325,6 @@ public class Monster extends Entity
 		
 		
 		return returnParams;
-/*		
-		//this.currentHealth = this.maxHealth;
-		//this.points = Integer.parseInt(splitMonst.nextToken());
-		
-		if(DEBUG){ //to check the values of various variable 
-			System.out.println("list.size " + monsterFileRead.size());	
-			System.out.println("size of list " + sizeOfMonstList);	
-			System.out.println("name " + name);	
-			System.out.println("current health " + currentHealth);	
-			System.out.println("max health " + maxHealth);	
-			System.out.println("points " + points);	
-		}
-*/		
 		
 	}//end parse method
 	
