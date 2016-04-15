@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
 public class Monster extends Entity
 {
 	private final boolean DEBUG = false;
-	private final boolean TESTING = true;	//set this to enable testing
+	private final boolean TESTING = false;	//set this to enable testing
 	
 	private boolean TESTING_HIT = false; //set to true to eliminate randomness for testing purposes
 	private boolean TESTING_MISS = false; //set to true to eliminate randomness for testing purposes
