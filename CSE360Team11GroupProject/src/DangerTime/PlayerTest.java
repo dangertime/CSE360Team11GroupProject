@@ -30,7 +30,7 @@ public class PlayerTest {
 	@Test
 	public void testRunAttempt(){
 		Player p = new Player();
-		Boolean bool = p.runAttempt();
+		boolean bool = p.runAttempt();
 		if(bool){
 			assertTrue(true);
 		} else {
