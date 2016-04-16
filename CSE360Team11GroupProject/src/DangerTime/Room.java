@@ -15,6 +15,8 @@ public class Room {
 	private boolean TESTING_EVENT_GOLD = false;
 	private boolean TESTING_PDAMAGEMONSTER = false;
 	private boolean TESTING_MDAMAGEPLAYER = false;
+	private boolean TESTING_FIND_OR_FIGHT_FALSE = false;
+	private boolean TESTING_FIND_OR_FIGHT_TRUE = false;
 	
 	public enum events {POTION, EMPTY_ROOM, GOLD};
 	
@@ -155,7 +157,16 @@ public class Room {
 	 */
 	private void findOrFight() 
 	{
-		if(findOrFight.roll() == 12)
+		int findOrFightChance = findOrFight.roll();
+		if (TESTING && TESTING_FIND_OR_FIGHT_TRUE)
+		{
+			findOrFightChance = 2; // forcing isFightingFlag to be true
+		}
+		else if(TESTING && TESTING_FIND_OR_FIGHT_FALSE)
+		{
+			findOrFightChance = 12; // forcing isFightingFlag to be false
+		}
+		if(findOrFightChance == 12)
 		{
 			isFightingFlag = false;
 		}
@@ -217,6 +228,10 @@ public class Room {
 		return eventStr;
 	}
 	
+	/**
+	 * Let's us know what monster is in the room
+	 * @return monster within the room
+	 */
 	public Monster getMonsterWithinRoom()
 	{
 		return this.monster;
@@ -226,18 +241,6 @@ public class Room {
 	public boolean getTesting()
 	{
 		return TESTING;
-	}
-	public boolean getTestingEventPotion()
-	{
-		return TESTING_EVENT_POTION;
-	}
-	public boolean getTestingEventEmptyRoom()
-	{
-		return TESTING_EVENT_EMPTY_ROOM;
-	}
-	public boolean getTestingEventGold()
-	{
-		return TESTING_EVENT_GOLD;
 	}
 	public void setTestingEventPotion()
 	{
@@ -264,5 +267,15 @@ public class Room {
 	public void setTestingPDamageMonster()
 	{
 		TESTING_PDAMAGEMONSTER = true;
+	}
+	public void setTestingFindOrFightFalse()
+	{
+		TESTING_FIND_OR_FIGHT_FALSE = true;
+		TESTING_FIND_OR_FIGHT_TRUE = false;
+	}
+	public void setTestingFindOrFightTrue()
+	{
+		TESTING_FIND_OR_FIGHT_TRUE = true;
+		TESTING_FIND_OR_FIGHT_FALSE = false;
 	}
 }

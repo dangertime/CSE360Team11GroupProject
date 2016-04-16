@@ -53,6 +53,7 @@ public class RoomTest {
 		assertEquals(room.event(), "You found some gold!\n");
 	}
 	
+	// Checking that pDamageMonster() produces the desired message
 	@Test
 	public void testPDamageMonster()
 	{
@@ -62,6 +63,7 @@ public class RoomTest {
 		assertEquals(room.pDamageMonster(), "You dealt 10 damage to " + (room.getMonsterWithinRoom()).toString() + "!\n");
 	}
 	
+	// Checking that mDamagePlayer() produces the desired message
 	@Test
 	public void testMDamagePlayer()
 	{
@@ -70,5 +72,26 @@ public class RoomTest {
 		room.setTestingMDamagePlayer();
 		assertEquals(room.mDamagePlayer(), (room.getMonsterWithinRoom()).toString() + " dealt 10 damage to you!\n");
 
+	}
+	
+	// Making sure that both branches of the FindOrFight() method can be reached
+	@Test
+	public void testFindOrFightFalse()
+	{
+		Player player = new Player();
+		Room room = new Room(player);
+		room.setTestingFindOrFightFalse();
+		room.enter();
+		assertFalse(room.isFighting());
+	}
+	
+	@Test
+	public void testFindOrFightTrue()
+	{
+		Player player = new Player();
+		Room room = new Room(player);
+		room.setTestingFindOrFightTrue();
+		room.enter();
+		assertTrue(room.isFighting());
 	}
 }
