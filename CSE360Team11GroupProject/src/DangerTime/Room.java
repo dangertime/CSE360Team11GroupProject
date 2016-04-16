@@ -66,12 +66,12 @@ public class Room {
 	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.");
 	    	System.out.println("You have " + player.getHealth() + " health left.");
 	    	System.out.println("Would you like to continue or try and flee?");
-	    	System.out.println("Press \'f\' to try and flee or \'c\' to continue");
+	    	System.out.println("Press \'c\' to continue or \'f\' to try and flee:");
 	    	
 	    	while(!input.hasNext("c") && !input.hasNext("f"))
 			{
 				System.out.println("INVALID INPUT");
-				System.out.println("Press \'f\' to try and flee or \'c\' to continue");
+				System.out.println("Press \'c\' to continue or \'f\' to try and flee:");
 				input.nextLine();
 			}
 	    	
