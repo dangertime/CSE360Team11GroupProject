@@ -13,7 +13,8 @@ public class Room {
 	private boolean TESTING_EVENT_POTION = false;
 	private boolean TESTING_EVENT_EMPTY_ROOM = false;
 	private boolean TESTING_EVENT_GOLD = false;
-	
+	private boolean TESTING_PDAMAGEMONSTER = false;
+	private boolean TESTING_MDAMAGEPLAYER = false;
 	
 	public enum events {POTION, EMPTY_ROOM, GOLD};
 	
@@ -53,11 +54,11 @@ public class Room {
 		System.out.println("You have encountered a " + monster.toString());
 		System.out.println("Get ready to fight! Press any key to continue...");
 		input.next();
-	    while(player.isAlive() && monster.isAlive() && monster.stayToFight() && isFightingFlag == true) //could be do while loop, up to you
+	    while(player.isAlive() && monster.isAlive() && monster.stayToFight() && isFightingFlag == true) 
 	    {
     	    System.out.println(monster.toString() + ": Prepare to die!");
 	    	//monster goes first
-    	    mDamagePlayer();
+    	    System.out.println(mDamagePlayer());
     	    
     	    //give menu option for player running
 	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.");
@@ -76,7 +77,7 @@ public class Room {
 	    	
     	    if(inputString.equalsIgnoreCase("c"))
     	    {
-    	    	pDamageMonster();
+    	    	System.out.println(pDamageMonster());
     	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.");
     	    	System.out.println("You have " + player.getHealth() + " health left.");
     	    }
@@ -99,22 +100,34 @@ public class Room {
      * Called within the fight() method when it is the monster's turn to attack
      * the player. It prints out the amount of health deducted from the player.
      */    
-	public void mDamagePlayer()
+	public String mDamagePlayer()
 	{
+		String damageStr = "";
 		int damage = monster.dealDamage();
-		System.out.print(monster.toString() + " dealt " + damage + " damage to you!\n");
+		if(TESTING && TESTING_MDAMAGEPLAYER)
+		{
+			damage = 10; // removing the randomness of damage (for testing purposes)
+		}
+		damageStr = monster.toString() + " dealt " + damage + " damage to you!\n";
 		player.takeDamage(damage);
+		return damageStr;
 	}
 	
 	/**
 	 * Called within the fight() method when it is the player's turn to attack
 	 * the monster. It prints out the amount of health deducted from the monster.
 	 */
-	public void pDamageMonster()
+	public String pDamageMonster()
 	{
+		String damageStr = "";
 		int damage = player.dealDamage();
-		System.out.print("You dealt " + damage + " damage to " + monster.toString() + "!\n");
+		if (TESTING && TESTING_PDAMAGEMONSTER)
+		{
+			damage = 10; // removing the randomness of damage (for testing purposes)
+		}
+		damageStr = "You dealt " + damage + " damage to " + monster.toString() + "!\n";
 		monster.takeDamage(damage);
+		return damageStr;
 	}
 	
 	/**
@@ -204,6 +217,11 @@ public class Room {
 		return eventStr;
 	}
 	
+	public Monster getMonsterWithinRoom()
+	{
+		return this.monster;
+	}
+	
 	// All the methods below are associated with testing the Room class
 	public boolean getTesting()
 	{
@@ -238,5 +256,13 @@ public class Room {
 		TESTING_EVENT_POTION = false;
 		TESTING_EVENT_EMPTY_ROOM = false;
 		TESTING_EVENT_GOLD = true;
+	}
+	public void setTestingMDamagePlayer()
+	{
+		TESTING_MDAMAGEPLAYER = true;
+	}
+	public void setTestingPDamageMonster()
+	{
+		TESTING_PDAMAGEMONSTER = true;
 	}
 }

@@ -52,4 +52,23 @@ public class RoomTest {
 		room.setTestingEventGold();
 		assertEquals(room.event(), "You found some gold!\n");
 	}
+	
+	@Test
+	public void testPDamageMonster()
+	{
+		Player player = new Player();
+		Room room = new Room(player);
+		room.setTestingPDamageMonster();
+		assertEquals(room.pDamageMonster(), "You dealt 10 damage to " + (room.getMonsterWithinRoom()).toString() + "!\n");
+	}
+	
+	@Test
+	public void testMDamagePlayer()
+	{
+		Player player = new Player();
+		Room room = new Room(player);
+		room.setTestingMDamagePlayer();
+		assertEquals(room.mDamagePlayer(), (room.getMonsterWithinRoom()).toString() + " dealt 10 damage to you!\n");
+
+	}
 }
