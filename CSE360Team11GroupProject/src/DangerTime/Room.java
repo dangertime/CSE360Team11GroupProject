@@ -5,10 +5,15 @@ import java.util.Scanner;
 
 public class Room {
 	
-	private final boolean DEBUG = false;
+	private static final int FIND_OR_FIGHT_CHANCE = 12;  // a 1/12 chance of not fighting a monster
 	
-	private static final String EVENT_INFO_FILENAME = "src/events.txt";
-	private static final int FIND_OR_FIGHT_CHANCE = 12; 					// a 1/12th chance of not fighting a monster
+	// These variables are used for testing the Room class
+	// They are needed to eliminate the randomness for testing purposes
+	private final boolean TESTING = true; // set this to true to enable testing
+	private boolean TESTING_EVENT_POTION = false;
+	private boolean TESTING_EVENT_EMPTY_ROOM = false;
+	private boolean TESTING_EVENT_GOLD = false;
+	
 	
 	public enum events {POTION, EMPTY_ROOM, GOLD};
 	
@@ -89,53 +94,7 @@ public class Room {
 	    }
 		
 	}
-	
-	// haven't handled how health is given back
-	//player will probably need a method to give health back, just call that
-//	public String event()
-//	{
-//		List<String> eventsList = new ArrayList<String>();
-//		String eventMsg;
-//		Random numGen = new Random();
-//		eventsList = parseEventFile();
-//		eventMsg = eventsList.get(numGen.nextInt(eventsList.size()));
-//		return eventMsg;
-//	}
-	
-//	public List<String> parseEventFile()
-//	{
-//		List<String> eventFileRead = new ArrayList<String>();
-//		String fileLine;
-//		
-//		try
-//		{
-//			// FileReader reads text files in the default encoding.
-//            FileReader fileReader = 
-//                new FileReader(EVENT_INFO_FILENAME);
-//
-//            // Always wrap FileReader in BufferedReader.
-//            BufferedReader bufferedReader = 
-//                new BufferedReader(fileReader);
-//
-//            while((fileLine = bufferedReader.readLine()) != null)
-//            {
-//                if(DEBUG)
-//                	System.out.println("reading file, current line: " + fileLine);
-//            	eventFileRead.add(fileLine);
-//            }   
-//
-//            // Always close files.
-//            bufferedReader.close();         
-//		}
-//		catch(FileNotFoundException ex){
-//            System.out.println("Unable to open file '" + EVENT_INFO_FILENAME + "'");                
-//        }
-//        catch(IOException ex){
-//            ex.printStackTrace();
-//        }
-//		return eventFileRead;
-//	} // end of parseEventFile
-//	
+
     /**
      * Called within the fight() method when it is the monster's turn to attack
      * the player. It prints out the amount of health deducted from the player.
@@ -183,15 +142,14 @@ public class Room {
 	 */
 	private void findOrFight() 
 	{
-		
-		if(findOrFight.roll() == 12) {
-			
-			isFightingFlag = false; 
-			
-		} else {
+		if(findOrFight.roll() == 12)
+		{
+			isFightingFlag = false;
+		}
+		else
+		{
 			isFightingFlag = true;
 		}
-		
 	}
 	
 	/**
@@ -200,18 +158,31 @@ public class Room {
 	 * the player may receive health back or earn some extra points towards their
 	 * score.
 	 */
-	public void event() 
+	public String event() 
 	{
-		
+		String eventStr = "";
 		Random rand = new Random();
 		int randomIndex = rand.nextInt(3);
+		//---------UNIT TESTING---------
+		if(TESTING && TESTING_EVENT_POTION)
+		{
+			randomIndex = 0; // forcing a potion event to occur
+		}
+		else if(TESTING && TESTING_EVENT_EMPTY_ROOM)
+		{
+			randomIndex = 1; // forcing an empty room event to occur
+		}
+		else if(TESTING && TESTING_EVENT_GOLD)
+		{
+			randomIndex = 2; // forcing a gold event to occur
+		}
+		//------------------------------
 		events event = events.values()[randomIndex];
-		
 		switch(event) {
 		case POTION:
 				
-				System.out.println(eventStrings[randomIndex]);
-		
+				eventStr = eventStrings[randomIndex];
+
 				// making sure that the player receives a nonzero amount of health back
 				player.increaseHealth(rand.nextInt(4) * 10 + 10);
 				
@@ -219,17 +190,53 @@ public class Room {
 				
 		case EMPTY_ROOM:
 				
-				System.out.println(eventStrings[randomIndex]);
+				eventStr = eventStrings[randomIndex];
 				break;
 				
 		case GOLD:
 				
-				System.out.println(eventStrings[randomIndex]);
+				eventStr = eventStrings[randomIndex];
 				
 				// making sure that the player receives a nonzero amount of health back
 				player.increaseScore(rand.nextInt(4) * 10 + 10);
 				break;
 		}
-		
+		return eventStr;
+	}
+	
+	// All the methods below are associated with testing the Room class
+	public boolean getTesting()
+	{
+		return TESTING;
+	}
+	public boolean getTestingEventPotion()
+	{
+		return TESTING_EVENT_POTION;
+	}
+	public boolean getTestingEventEmptyRoom()
+	{
+		return TESTING_EVENT_EMPTY_ROOM;
+	}
+	public boolean getTestingEventGold()
+	{
+		return TESTING_EVENT_GOLD;
+	}
+	public void setTestingEventPotion()
+	{
+		TESTING_EVENT_POTION = true;
+		TESTING_EVENT_EMPTY_ROOM = false;
+		TESTING_EVENT_GOLD = false;
+	}
+	public void setTestingEventEmptyRoom()
+	{
+		TESTING_EVENT_POTION = false;
+		TESTING_EVENT_EMPTY_ROOM = true;
+		TESTING_EVENT_GOLD = false;
+	}
+	public void setTestingEventGold()
+	{
+		TESTING_EVENT_POTION = false;
+		TESTING_EVENT_EMPTY_ROOM = false;
+		TESTING_EVENT_GOLD = true;
 	}
 }
