@@ -79,7 +79,7 @@ public class Game
 			}
 			else
 			{
-				room.event();
+				System.out.println(room.event());
 			}
 			
 		} while(player.isAlive());
