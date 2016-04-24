@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Game 
 {
@@ -66,7 +67,8 @@ public class Game
 		{
 			System.out.println("Please enter a name");;
 		}
-		player.setName(scanner.nextLine());
+		String name = scanner.next();
+		player.setName(name);
 		
 		//Begin the game
 		do
@@ -217,10 +219,10 @@ public class Game
 	{
 		try
 		{
-			FileWriter fileWriter = new FileWriter(HIGHSCORE_FILE);
+			FileWriter fileWriter = new FileWriter(HIGHSCORE_FILE, true);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-			bufferedWriter.write(t_player.name + "," 
-					+ t_player.getScore() + "," 
+			bufferedWriter.write(t_player.getScore() + "," 
+					+  t_player.getName() + ","
 					+ t_player.getNumRooms() + "," 
 					+ t_player.getMonstersDefeated() + "\n");
 			bufferedWriter.close();

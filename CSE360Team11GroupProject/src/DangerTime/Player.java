@@ -155,4 +155,9 @@ public class Player extends Entity
 		}
 		return hit;
 	}
+	
+	public String getName()
+	{
+		return this.name;
+	}
 }
