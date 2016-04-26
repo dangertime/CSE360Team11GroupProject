@@ -7,12 +7,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 public class Game 
 {
 	private static final String HIGHSCORE_FILE = "src/highscore.txt";
 	private static final int HIGHSCORE_MAX_DISPLAY = 20;
+	private static final int MONSTER_SCORE_REWARD = 100;
+	private static final int EVENT_SCORE_REWARD = 50;
 	
 	private Player player;
 	private Room room;
@@ -61,13 +62,18 @@ public class Game
 	 */
 	private void play()
 	{
-		//Allow the player to name themselves for highscore purposes
+		//Allow the player to name themselves for highscore purposes, excluding commas
 		System.out.println("What is your name brave hero?");
-		while(!scanner.hasNext())
+		String name;
+		do
 		{
-			System.out.println("Please enter a name");;
-		}
-		String name = scanner.next();
+			System.out.println("Commas (,); may not be used in your name.");
+			while(!scanner.hasNext())
+			{
+				System.out.println("Please enter a name");;
+			}
+			name = scanner.next();
+		} while(name.contains(","));
 		player.setName(name);
 		
 		//Begin the game
@@ -78,10 +84,20 @@ public class Game
 			if(room.isFighting())
 			{
 				room.fight();
+				if(player.isAlive())
+				{
+					player.defeatedMonster();
+					player.increaseScore(MONSTER_SCORE_REWARD);
+				}
 			}
 			else
 			{
 				System.out.println(room.event());
+				player.increaseScore(EVENT_SCORE_REWARD);
+			}
+			if(player.isAlive())
+			{
+				player.clearedRoom();
 			}
 			
 		} while(player.isAlive());
