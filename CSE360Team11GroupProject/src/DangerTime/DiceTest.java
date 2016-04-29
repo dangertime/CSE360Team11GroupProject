@@ -18,7 +18,7 @@ public class DiceTest {
 	{
 		Dice die = new Dice(10);
 		int roll = die.roll();
-		boolean assertion = roll < 10 && roll > -1;
+		boolean assertion = roll <= 10 && roll > -1;
 		assertTrue(assertion);
 	}
 }

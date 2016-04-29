@@ -60,6 +60,7 @@ public class RoomTest {
 		Player player = new Player();
 		Room room = new Room(player);
 		room.setTestingPDamageMonster();
+		room.getMonsterWithinRoom().setTestingRoom();
 		assertEquals(room.pDamageMonster(), "You dealt 10 damage to " + (room.getMonsterWithinRoom()).toString() + "!\n");
 	}
 	

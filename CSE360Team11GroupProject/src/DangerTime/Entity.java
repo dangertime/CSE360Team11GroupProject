@@ -33,6 +33,7 @@ public abstract class Entity
 	 */
 	public void takeDamage(int damageTaken){
 		currentHealth  -= damageTaken;
+		currentHealth = currentHealth < 0 ? 0 : currentHealth;
 	}
 	
 	

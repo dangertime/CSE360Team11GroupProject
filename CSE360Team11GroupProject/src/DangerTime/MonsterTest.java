@@ -86,7 +86,7 @@ public class MonsterTest {
 		Monster m = new Monster();
 		int damageDealt = m.dealDamage();
 		
-		assertTrue(damageDealt > 0 && damageDealt < 11 );
+		assertTrue(damageDealt >= 0 && damageDealt < 11 );
 	}
 	
 	@Test

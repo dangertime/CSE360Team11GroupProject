@@ -13,10 +13,11 @@ import java.util.StringTokenizer;
 public class Monster extends Entity
 {
 	private final boolean DEBUG = false;
-	private final boolean TESTING = false;	//set this to enable testing
+	private final boolean TESTING = true;	//set this to enable testing
 	
 	private boolean TESTING_HIT = false; //set to true to eliminate randomness for testing purposes
 	private boolean TESTING_MISS = false; //set to true to eliminate randomness for testing purposes
+	private boolean TESTING_ROOM = false;
 	
 	//constants made for easy modification and game balancing
 	private static final String ADJ_TEXT_FILENAME = "src/monster_adj.txt";
@@ -100,7 +101,7 @@ public class Monster extends Entity
 	public String toString(){
 		String toPrint = "";
 		
-		if(DEBUG || TESTING){
+		if( (DEBUG || TESTING) && !TESTING_ROOM){
 			toPrint += name + " " + maxHealth + " " + 
 					   currentHealth + " " + stayAndFight + " " + 
 					   points;
@@ -207,6 +208,12 @@ public class Monster extends Entity
 	public void setTestingMiss(){
 		TESTING_MISS = true;
 		TESTING_HIT = false;	//to avoid bugs
+	}
+	
+	public void setTestingRoom(){
+		TESTING_ROOM = true;
+		TESTING_HIT = false;	//to avoid bugs
+		TESTING_MISS = false;
 	}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
 
