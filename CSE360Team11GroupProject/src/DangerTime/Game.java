@@ -103,7 +103,7 @@ public class Game
 		} while(name.contains(","));
 		player.setName(name);
 		
-		System.out.println("Welcom, brave " + player.getName() + ".");
+		System.out.println("Welcome, brave " + player.getName() + ".");
 		delay(500); System.out.println("Your journey begins now...\n");
 		
 		//Begin the game
