@@ -51,10 +51,12 @@ public class Game
 	 */
 	private void displayMenu()
 	{
-		System.out.println("It's danger time!");
-		System.out.println("\t1: Start game");
-		System.out.println("\t2: Highscore");
-		System.out.println("\t3: Quit");
+		System.out.println("WELCOME TO DANGER TIME!");
+		delay(1000);
+		System.out.println("=========================");
+		delay(500); System.out.println("\t1: Start game");
+		delay(500); System.out.println("\t2: Highscore");
+		delay(500); System.out.println("\t3: Quit\n");
 	}
 	
 	/**
@@ -64,10 +66,12 @@ public class Game
 	{
 		//Allow the player to name themselves for highscore purposes, excluding commas
 		System.out.println("What is your name brave hero?");
+		System.out.println("Your name must be one word.");
 		String name;
 		do
 		{
 			System.out.println("Commas (,); may not be used in your name.");
+			scanner.nextLine();
 			while(!scanner.hasNext())
 			{
 				System.out.println("Please enter a name");;
@@ -76,9 +80,13 @@ public class Game
 		} while(name.contains(","));
 		player.setName(name);
 		
+		System.out.println("Welcom, brave " + player.getName() + ".");
+		delay(500); System.out.println("Your journey begins now...\n");
+		
 		//Begin the game
 		do
 		{
+			delay(1000); System.out.println("You enter a new room...\n");
 			room = new Room(player);
 			room.enter();
 			if(room.isFighting())
@@ -98,6 +106,8 @@ public class Game
 			if(player.isAlive())
 			{
 				player.clearedRoom();
+				System.out.println("You have cleared the room!\n");
+				delay(1000); System.out.println("You proceed to the next room...\n");
 			}
 			
 		} while(player.isAlive());
@@ -106,7 +116,8 @@ public class Game
 		System.out.println("You have been slain!");
 		System.out.println("Recording your score now...");
 		handleStatistics(player);
-		System.out.println("Press return/enter to return to the main menu");
+		delay(1000);
+		System.out.println("Returning to the Main menu...\n\n");
 		scanner.nextLine();
 	}
 	
@@ -173,6 +184,7 @@ public class Game
 		//Dont display every highscore, only best
 		int loopLimit = t_highScores.size() > HIGHSCORE_MAX_DISPLAY ? HIGHSCORE_MAX_DISPLAY : t_highScores.size();
 		
+		delay(500);
 		System.out.println("Name--------Score----Rooms--Monsters");
 		System.out.println("====================================");
 		for(int index = 0; index < loopLimit; index++)
@@ -186,7 +198,7 @@ public class Game
 			int rooms = Integer.parseInt(stringTokenizer.nextToken());
 			int monsters = Integer.parseInt(stringTokenizer.nextToken());
 			
-			System.out.format("%-8s %8d %8d %8d\n",name,score,rooms,monsters);
+			delay(250); System.out.format("%-8s %8d %8d %8d\n",name,score,rooms,monsters);
 		}
 		System.out.print("\n\n");
 	}
@@ -250,6 +262,18 @@ public class Game
 		catch(IOException ex)
 		{
 			ex.printStackTrace();
+		}
+	}
+	
+	private void delay(int milliseconds)
+	{
+		try
+		{
+			Thread.sleep(milliseconds);
+		}
+		catch (InterruptedException ex)
+		{
+			System.out.println("ERROR IN WAITING!!!!");
 		}
 	}
 }
