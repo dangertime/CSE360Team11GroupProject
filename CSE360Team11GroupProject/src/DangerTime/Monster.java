@@ -70,21 +70,6 @@ public class Monster extends Entity
 		//set current health after determining if monster is a boss	
 		this.currentHealth = this.maxHealth;
 
-    	
-		try{
-		    // open the sound file as a Java input stream
-		    String gongFile = "sounds/monsterbattle.wav";
-		    InputStream in = new FileInputStream(gongFile);
-		 
-		    // create an audiostream from the inputstream
-		    AudioStream audioStream = new AudioStream(in);
-		 
-		    // play the audio clip with the audioplayer class
-		    AudioPlayer.player.start(audioStream);
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-		}
 
 		//code for testing and debug
 		if(TESTING){
