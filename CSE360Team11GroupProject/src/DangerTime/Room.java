@@ -46,8 +46,8 @@ public class Room {
 	/**
 	 * This method is responsible for controlling the battle between the player 
 	 * and the monster. It provides some dialogue prompting the player to either
-	 * to continue battling until there is a victor or to flee for their lives.
-	 * This method is exited when the player dies, the monster dies, the player 
+	 * to continue battling until there is a victory or to flee for their lives.
+	 * This method is exited when the player dies, the monster dies, the monster 
 	 * flees, or the player flees.
 	 */
 	public void fight()
@@ -55,7 +55,9 @@ public class Room {
 		String inputString;
 		
 		System.out.println("You have encountered a " + monster.toString());
-		// DELAY HERE
+	
+		addDelay(1500);
+		
 	    System.out.println(monster.toString() + ": Prepare to die!");
 		
 		System.out.println("Get ready to fight! Press any key to continue...");
