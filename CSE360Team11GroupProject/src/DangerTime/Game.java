@@ -18,8 +18,8 @@ public class Game
 {
 	private static final String HIGHSCORE_FILE = "src/highscore.txt";
 	private static final int HIGHSCORE_MAX_DISPLAY = 20;
-	private static final int MONSTER_SCORE_REWARD = 100;
-	private static final int EVENT_SCORE_REWARD = 50;
+	private static final int MONSTER_SCORE_REWARD = 10;
+	private static final int EVENT_SCORE_REWARD = 5;
 	
 	private Player player;
 	private Room room;
