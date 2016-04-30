@@ -67,9 +67,11 @@ public class Room {
     	    System.out.println(mDamagePlayer());
     	    
     	    //give menu option for player running
-	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.");
+    	    addDelay(1000);
+    	    System.out.println("You have " + player.getHealth() + " health left.\n");
 	    	addDelay(1500);
-	    	System.out.println("You have " + player.getHealth() + " health left.\n");
+	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.\n");
+	    	addDelay(1000);
 	    	System.out.println("Would you like to continue or try and flee?");
 	    	System.out.println("Press \'c\' to continue or \'f\' to try and flee:");
 	    	
@@ -85,8 +87,9 @@ public class Room {
 	    	
     	    if(inputString.equalsIgnoreCase("c"))
     	    {
-    	    	System.out.println(pDamageMonster());
     	    	addDelay(1500);
+    	    	System.out.println(pDamageMonster());
+    	    	addDelay(1000);
     	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.");
     	    	addDelay(1000);
     	    	System.out.println("You have " + player.getHealth() + " health left.");
