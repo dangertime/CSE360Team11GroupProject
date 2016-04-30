@@ -9,7 +9,7 @@ public class Room {
 	
 	// These variables are used for testing the Room class
 	// They are needed to eliminate the randomness for testing purposes
-	private final boolean TESTING = true; // set this to true to enable testing
+	private final boolean TESTING = false; // set this to true to enable testing
 	private boolean TESTING_EVENT_POTION = false;
 	private boolean TESTING_EVENT_EMPTY_ROOM = false;
 	private boolean TESTING_EVENT_GOLD = false;
@@ -54,22 +54,27 @@ public class Room {
 		String inputString;
 		
 		System.out.println("You have encountered a " + monster.toString());
+		// DELAY HERE
+	    System.out.println(monster.toString() + ": Prepare to die!");
+		
 		System.out.println("Get ready to fight! Press any key to continue...");
 		input.next();
 	    while(player.isAlive() && monster.isAlive() && monster.stayToFight() && isFightingFlag == true) 
 	    {
-    	    System.out.println(monster.toString() + ": Prepare to die!");
+	    	// DELAY HERE
 	    	//monster goes first
     	    System.out.println(mDamagePlayer());
     	    
     	    //give menu option for player running
 	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.");
+	    	// DELAY HERE
 	    	System.out.println("You have " + player.getHealth() + " health left.");
 	    	System.out.println("Would you like to continue or try and flee?");
 	    	System.out.println("Press \'c\' to continue or \'f\' to try and flee:");
 	    	
 	    	while(!input.hasNext("c") && !input.hasNext("f"))
 			{
+	    		// TINY DELAY HERE
 				System.out.println("INVALID INPUT");
 				System.out.println("Press \'c\' to continue or \'f\' to try and flee:");
 				input.nextLine();
