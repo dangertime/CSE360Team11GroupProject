@@ -2,6 +2,7 @@ package DangerTime;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.lang.Thread;
 
 public class Room {
 	
@@ -61,20 +62,20 @@ public class Room {
 		input.next();
 	    while(player.isAlive() && monster.isAlive() && monster.stayToFight() && isFightingFlag == true) 
 	    {
-	    	// DELAY HERE
+	    	addDelay(1500); // delay for 1.5 s
 	    	//monster goes first
     	    System.out.println(mDamagePlayer());
     	    
     	    //give menu option for player running
 	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.");
-	    	// DELAY HERE
-	    	System.out.println("You have " + player.getHealth() + " health left.");
+	    	addDelay(1500);
+	    	System.out.println("You have " + player.getHealth() + " health left.\n");
 	    	System.out.println("Would you like to continue or try and flee?");
 	    	System.out.println("Press \'c\' to continue or \'f\' to try and flee:");
 	    	
 	    	while(!input.hasNext("c") && !input.hasNext("f"))
 			{
-	    		// TINY DELAY HERE
+	    		addDelay(750);
 				System.out.println("INVALID INPUT");
 				System.out.println("Press \'c\' to continue or \'f\' to try and flee:");
 				input.nextLine();
@@ -85,17 +86,23 @@ public class Room {
     	    if(inputString.equalsIgnoreCase("c"))
     	    {
     	    	System.out.println(pDamageMonster());
+    	    	addDelay(1500);
     	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.");
+    	    	addDelay(1000);
     	    	System.out.println("You have " + player.getHealth() + " health left.");
     	    }
     	    else
     	    {
     	    	if(player.runAttempt())
     	    	{
+    	    		addDelay(1000);
     	    		System.out.println("You have fled the battle!");
     	    		isFightingFlag = false;
-    	    	} else 
+    	    	}
+    	    	
+    	    	else 
     	    	{
+    	    		addDelay(1000);
     	    		System.out.println("You can't run...ahahahaha...you fool!");
     	    	}
     	    }
@@ -240,6 +247,24 @@ public class Room {
 	public Monster getMonsterWithinRoom()
 	{
 		return this.monster;
+	}
+	
+	
+	/**
+	 * Used to enhance text readability
+	 * @param timeInMilli how long the program should be suspended
+	 */
+	private void addDelay(long timeInMilli)
+	{
+    	try
+    	{
+    		Thread.sleep(timeInMilli);
+    	}
+    	catch(InterruptedException ex)
+    	{
+    		Thread.currentThread().interrupt();
+    	}
+    	
 	}
 	
 	// All the methods below are associated with testing the Room class
