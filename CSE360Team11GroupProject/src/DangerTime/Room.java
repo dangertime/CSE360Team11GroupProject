@@ -94,71 +94,76 @@ public class Room {
     	    //give menu option for player running
     	    addDelay(1000);
     	    System.out.println("You have " + player.getHealth() + " health left.\n");
-	    	addDelay(1500);
-	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.\n");
-	    	addDelay(1000);
-	    	System.out.println("Would you like to continue or try and flee?");
-	    	System.out.println("Press \'c\' to continue or \'f\' to try and flee:");
-	    	
-	    	while(!input.hasNext("c") && !input.hasNext("f"))
-			{
-	    		addDelay(750);
-				System.out.println("INVALID INPUT");
-				System.out.println("Press \'c\' to continue or \'f\' to try and flee:");
-				input.nextLine();
-			}
-	    	
-			inputString = input.next(); 
-	    	
-    	    if(inputString.equalsIgnoreCase("c"))
-    	    {
-    	    	addDelay(1500);
-    	    	System.out.println(pDamageMonster());
-    	    	addDelay(1000);
-    	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.\n");
-    	    	addDelay(1000);
-    	    	System.out.println("You have " + player.getHealth() + " health left.\n");
-    	    }
-    	    else
-    	    {
-    	    	if(player.runAttempt())
-    	    	{
-    	    		addDelay(1000);
-    	    		System.out.println("You have fled the battle!");
-    	    		isFightingFlag = false;
-    	    	}
-    	    	
-    	    	else 
-    	    	{
-    	    		addDelay(1000);
-    	    		System.out.println("You can't run...ahahahaha...you fool!");
-    	    	}
-    	    }
     	    
-    	    if(!monster.isAlive()){
-    	    	addDelay(1000);
-	    		System.out.println("You are victorious!");
-	    		
-	    		try{
-	    		    // open the sound file as a Java input stream
-	    		    String gongFile = "sounds/victory.wav";
-	    		    InputStream in = new FileInputStream(gongFile);
-	    		 
-	    		    // create an audiostream from the inputstream
-	    		    AudioStream audioStream = new AudioStream(in);
-	    		 
-	    		    // play the audio clip with the audioplayer class
-	    		    AudioPlayer.player.start(audioStream);
-	    		}
-	    		catch(Exception ex){
-	    			ex.printStackTrace();
-	    		}	
-	    		
-	    		addDelay(1500);
-	    		
-	    		
-    	    }
+    	    //Handles not being able to deal damage if player is dead
+    	    if(player.isAlive())
+    	    {
     	    
+		    	addDelay(1500);
+		    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.\n");
+		    	addDelay(1000);
+		    	System.out.println("Would you like to continue or try and flee?");
+		    	System.out.println("Press \'c\' to continue or \'f\' to try and flee:");
+		    	
+		    	while(!input.hasNext("c") && !input.hasNext("f"))
+				{
+		    		addDelay(750);
+					System.out.println("INVALID INPUT");
+					System.out.println("Press \'c\' to continue or \'f\' to try and flee:");
+					input.nextLine();
+				}
+		    	
+				inputString = input.next(); 
+		    	
+	    	    if(inputString.equalsIgnoreCase("c"))
+	    	    {
+	    	    	addDelay(1500);
+	    	    	System.out.println(pDamageMonster());
+	    	    	addDelay(1000);
+	    	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.\n");
+	    	    	addDelay(1000);
+	    	    	System.out.println("You have " + player.getHealth() + " health left.\n");
+	    	    }
+	    	    else
+	    	    {
+	    	    	if(player.runAttempt())
+	    	    	{
+	    	    		addDelay(1000);
+	    	    		System.out.println("You have fled the battle!");
+	    	    		isFightingFlag = false;
+	    	    	}
+	    	    	
+	    	    	else 
+	    	    	{
+	    	    		addDelay(1000);
+	    	    		System.out.println("You can't run...ahahahaha...you fool!");
+	    	    	}
+	    	    }
+	    	    
+	    	    if(!monster.isAlive()){
+	    	    	addDelay(1000);
+		    		System.out.println("You are victorious!");
+		    		
+		    		try{
+		    		    // open the sound file as a Java input stream
+		    		    String gongFile = "sounds/victory.wav";
+		    		    InputStream in = new FileInputStream(gongFile);
+		    		 
+		    		    // create an audiostream from the inputstream
+		    		    AudioStream audioStream = new AudioStream(in);
+		    		 
+		    		    // play the audio clip with the audioplayer class
+		    		    AudioPlayer.player.start(audioStream);
+		    		}
+		    		catch(Exception ex){
+		    			ex.printStackTrace();
+		    		}	
+		    		
+		    		addDelay(1500);
+		    		
+		    		
+	    	    }
+    	    }
     	    
 	    }
 		
