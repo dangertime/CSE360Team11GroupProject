@@ -2,6 +2,12 @@ package DangerTime;
 
 import java.util.Random;
 import java.util.Scanner;
+
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.lang.Thread;
 
 public class Room {
@@ -52,6 +58,8 @@ public class Room {
 	 */
 	public void fight()
 	{
+
+		
 		String inputString;
 		
 		System.out.println("You have encountered a " + monster.toString());
@@ -64,6 +72,7 @@ public class Room {
 		input.next();
 	    while(player.isAlive() && monster.isAlive() && monster.stayToFight() && isFightingFlag == true) 
 	    {
+    	
 	    	addDelay(1500); // delay for 1.5 s
 	    	//monster goes first
     	    System.out.println(mDamagePlayer());
@@ -111,6 +120,32 @@ public class Room {
     	    		System.out.println("You can't run...ahahahaha...you fool!");
     	    	}
     	    }
+    	    
+    	    if(!monster.isAlive()){
+    	    	addDelay(1000);
+	    		System.out.println("You are victorious!");
+	    		
+	    		try{
+	    		    // open the sound file as a Java input stream
+	    		    String gongFile = "sounds/victory.wav";
+	    		    InputStream in = new FileInputStream(gongFile);
+	    		 
+	    		    // create an audiostream from the inputstream
+	    		    AudioStream audioStream = new AudioStream(in);
+	    		 
+	    		    // play the audio clip with the audioplayer class
+	    		    AudioPlayer.player.start(audioStream);
+	    		}
+	    		catch(Exception ex){
+	    			ex.printStackTrace();
+	    		}	
+	    		
+	    		addDelay(1500);
+	    		
+	    		
+    	    }
+    	    
+    	    
 	    }
 		
 	}

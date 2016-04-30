@@ -1,12 +1,18 @@
 package DangerTime;
 
 import java.util.*;
+
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class Game 
 {
@@ -51,6 +57,23 @@ public class Game
 	 */
 	private void displayMenu()
 	{
+		try{
+		    // open the sound file as a Java input stream
+		    String gongFile = "sounds/mainmenu.wav";
+		    InputStream in = new FileInputStream(gongFile);
+		 
+		    // create an audiostream from the inputstream
+		    AudioStream audioStream = new AudioStream(in);
+		 
+		    // play the audio clip with the audioplayer class
+		    AudioPlayer.player.start(audioStream);
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}	
+		
+		
+		
 		System.out.println("WELCOME TO DANGER TIME!");
 		delay(1000);
 		System.out.println("=========================");
@@ -112,6 +135,21 @@ public class Game
 			
 		} while(player.isAlive());
 		
+		try{
+		    // open the sound file as a Java input stream
+		    String gongFile = "sounds/ondeath.wav";
+		    InputStream in = new FileInputStream(gongFile);
+		 
+		    // create an audiostream from the inputstream
+		    AudioStream audioStream = new AudioStream(in);
+		 
+		    // play the audio clip with the audioplayer class
+		    AudioPlayer.player.start(audioStream);
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}	
+		
 		//Resolve when the player loses
 		System.out.println("You have been slain!");
 		System.out.println("Recording your score now...");
@@ -119,6 +157,7 @@ public class Game
 		delay(1000);
 		System.out.println("Returning to the Main menu...\n\n");
 		scanner.nextLine();
+		delay(3000);
 	}
 	
 	/**

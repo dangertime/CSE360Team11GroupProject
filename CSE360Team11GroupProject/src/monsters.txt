@@ -3,3 +3,4 @@ Slime,10,1
 Towel Rack,11,2
 Hyena,15,3
 Bird,5,1
+Drake,6,6

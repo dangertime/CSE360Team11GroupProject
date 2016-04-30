@@ -1,13 +1,10 @@
 package DangerTime;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.StringTokenizer;
+import java.io.*;
+import sun.audio.*;
 
 
 public class Monster extends Entity
@@ -73,7 +70,22 @@ public class Monster extends Entity
 		//set current health after determining if monster is a boss	
 		this.currentHealth = this.maxHealth;
 
-		
+    	
+		try{
+		    // open the sound file as a Java input stream
+		    String gongFile = "sounds/monsterbattle.wav";
+		    InputStream in = new FileInputStream(gongFile);
+		 
+		    // create an audiostream from the inputstream
+		    AudioStream audioStream = new AudioStream(in);
+		 
+		    // play the audio clip with the audioplayer class
+		    AudioPlayer.player.start(audioStream);
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+
 		//code for testing and debug
 		if(TESTING){
 			/*
@@ -92,6 +104,8 @@ public class Monster extends Entity
 							  + "!!!!   DEBUG MODE ENABLED !!!\n"
 							  + "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 		}
+		
+
 
 	}
 	
