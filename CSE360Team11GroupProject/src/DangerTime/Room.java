@@ -90,9 +90,9 @@ public class Room {
     	    	addDelay(1500);
     	    	System.out.println(pDamageMonster());
     	    	addDelay(1000);
-    	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.");
+    	    	System.out.println(monster.toString() + " has " + monster.getHealth() + " health left.\n");
     	    	addDelay(1000);
-    	    	System.out.println("You have " + player.getHealth() + " health left.");
+    	    	System.out.println("You have " + player.getHealth() + " health left.\n");
     	    }
     	    else
     	    {
